@@ -124,6 +124,7 @@ class InView extends GetView<InController> {
                       kata = 'dari';
                     }
                     return CardListWidget(
+                      type: element.type,
                       icon: Icons.water,
                       date: element.date,
                       amount: element.amount.toString(),

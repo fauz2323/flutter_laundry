@@ -14,8 +14,10 @@ class HomeScreenView extends GetView<HomeScreenController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton:
-          FloatingActionButton(onPressed: () => controller.addData()),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => controller.initial(),
+        child: Icon(Icons.refresh),
+      ),
       appBar: AppBar(
         title: const Text('Hello, Users'),
       ),
@@ -34,13 +36,13 @@ class HomeScreenView extends GetView<HomeScreenController> {
                         CardHomeWidget(
                           width: Get.width * 0.43,
                           tittle: "Galon Masuk",
-                          data: "1000",
+                          data: controller.galonMasuk.value.toString(),
                           colorData: Colors.amber.withOpacity(0.8),
                         ),
                         CardHomeWidget(
                           width: Get.width * 0.43,
                           tittle: "Galon Keluar",
-                          data: "200",
+                          data: controller.galonKeluar.value.toString(),
                           colorData: Colors.greenAccent.withOpacity(0.8),
                         ),
                       ],
@@ -67,6 +69,7 @@ class HomeScreenView extends GetView<HomeScreenController> {
                         children: controller.dataKeuangan
                             .map(
                               (element) => CardListWidget(
+                                type: element.type,
                                 desc: element.desc,
                                 date: element.date,
                                 amount:

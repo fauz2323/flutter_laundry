@@ -16,7 +16,7 @@ class StockView extends GetView<StockController> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Get.defaultDialog(
-            title: "Galon Keluar/Masuk",
+            title: "Stock Keluar/Masuk",
             content: Container(
               width: Get.width * 90 / 100,
               padding: EdgeInsets.all(10),
@@ -127,6 +127,7 @@ class StockView extends GetView<StockController> {
               children: controller.dataStock
                   .map((element) {
                     return CardListWidget(
+                      type: element.type,
                       icon: Icons.water,
                       date: element.date,
                       amount: element.amount.toString(),

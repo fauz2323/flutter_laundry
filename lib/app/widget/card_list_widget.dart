@@ -8,14 +8,20 @@ class CardListWidget extends StatelessWidget {
     required this.date,
     required this.amount,
     required this.desc,
+    required this.type,
   });
   final IconData icon;
   final String date;
+  final String type;
   final String amount;
   final String desc;
 
   @override
   Widget build(BuildContext context) {
+    Color colorsText = Colors.black;
+    if (type == 'keluar') {
+      colorsText = Colors.red;
+    }
     return Container(
       width: Get.width * 90 / 100,
       margin: EdgeInsets.only(bottom: 10),
@@ -37,6 +43,10 @@ class CardListWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text(
+                  type,
+                  style: TextStyle(color: colorsText),
+                ),
                 Text(desc),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
