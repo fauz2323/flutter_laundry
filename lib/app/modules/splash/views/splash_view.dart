@@ -10,11 +10,8 @@ class SplashView extends GetView<SplashController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue,
-      body: const Center(
-        child: Text(
-          "Logos",
-          style: TextStyle(fontSize: 20),
-        ),
+      body: Center(
+        child: Image.asset('asset/image/store.png'),
       ),
     );
   }
