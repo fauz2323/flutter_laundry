@@ -9,12 +9,14 @@ class CardListWidget extends StatelessWidget {
     required this.amount,
     required this.desc,
     required this.type,
+    this.onPressed,
   });
   final IconData icon;
   final String date;
   final String type;
   final String amount;
   final String desc;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +45,18 @@ class CardListWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                onPressed == null
+                    ? Container()
+                    : Align(
+                        child: GestureDetector(
+                          child: Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
+                          onTap: onPressed,
+                        ),
+                        alignment: Alignment.topRight,
+                      ),
                 Text(
                   type,
                   style: TextStyle(color: colorsText),

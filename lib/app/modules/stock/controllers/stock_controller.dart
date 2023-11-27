@@ -61,7 +61,7 @@ class StockController extends GetxController {
     Get.back();
     isLoading(true);
 
-    await _sqlHelper.insertStock(
+    StockModel addStock = await _sqlHelper.insertStock(
       StockModel(
         type: type.value,
         desc: descController.text,
@@ -80,6 +80,7 @@ class StockController extends GetxController {
 
     dataStock.add(
       StockModel(
+        id: addStock.id,
         type: type.value,
         desc: descController.text,
         amount: int.parse(amountController.text),
@@ -90,5 +91,24 @@ class StockController extends GetxController {
     );
     isLoading(false);
     Get.snackbar("Message", "data Berhasil Di Tambah");
+  }
+
+  deleteItem(StockModel data) {
+    isLoading(true);
+
+    if (data.type == 'masuk') {
+      totalMasuk.value -= data.amount;
+      galonTotal.value = totalMasuk.value - totalKeluar.value;
+    } else {
+      totalKeluar.value -= data.amount;
+      galonTotal.value = totalMasuk.value - totalKeluar.value;
+    }
+
+    _sqlHelper.deleteStock(data.id!);
+
+    dataStock.removeWhere((element) => element.id == data.id!);
+
+    isLoading(false);
+    Get.snackbar("Message", "data Berhasil Di Hapus");
   }
 }

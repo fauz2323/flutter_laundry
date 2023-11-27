@@ -129,6 +129,7 @@ class InView extends GetView<InController> {
                       date: element.date,
                       amount: element.amount.toString(),
                       desc: kata + ' ' + element.destination,
+                      onPressed: () => controller.deleteItem(element),
                     );
                   })
                   .toList()

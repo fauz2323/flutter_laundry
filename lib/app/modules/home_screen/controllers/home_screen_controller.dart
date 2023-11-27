@@ -31,6 +31,10 @@ class HomeScreenController extends GetxController {
   }
 
   initial() async {
+    galonMasuk.value = 0;
+    galonKeluar.value = 0;
+    total.value = 0;
+    isLoading(true);
     dataKeuangan.value = await _sqlHelper.getAllKeuangan();
     inOut.value = await _sqlHelper.getAllTransaction();
     for (var inOutElemet in inOut) {

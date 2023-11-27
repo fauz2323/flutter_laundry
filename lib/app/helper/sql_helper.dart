@@ -116,6 +116,21 @@ class SQLHelper {
     return stock;
   }
 
+  Future deleteTransaction(int id) async {
+    var dbClient = await db;
+    return await dbClient.delete('inOut', where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future deleteStock(int id) async {
+    var dbClient = await db;
+    return await dbClient.delete('stock', where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future deleteKeuangan(int id) async {
+    var dbClient = await db;
+    return await dbClient.delete('keuangan', where: 'id = ?', whereArgs: [id]);
+  }
+
   Future close() async {
     var dbClient = await db;
     dbClient.close();

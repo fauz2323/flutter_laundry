@@ -62,7 +62,7 @@ class KeuanganController extends GetxController {
     Get.back();
     isLoading(true);
 
-    await _sqlHelper.insertKeuangan(
+    KeuanganModel addKeuangan = await _sqlHelper.insertKeuangan(
       KeuanganModel(
         type: type.value,
         desc: descController.text,
@@ -81,6 +81,7 @@ class KeuanganController extends GetxController {
 
     dataKeuangan.add(
       KeuanganModel(
+        id: addKeuangan.id,
         type: type.value,
         desc: descController.text,
         amount: int.parse(amountController.text),
@@ -91,5 +92,24 @@ class KeuanganController extends GetxController {
     );
     isLoading(false);
     Get.snackbar("Message", "data Berhasil Di Tambah");
+  }
+
+  deleteItem(KeuanganModel data) {
+    isLoading(true);
+
+    if (data.type == 'masuk') {
+      totalMasuk.value -= data.amount;
+      keuanganTotal.value = totalMasuk.value - totalKeluar.value;
+    } else {
+      totalKeluar.value -= data.amount;
+      keuanganTotal.value = totalMasuk.value - totalKeluar.value;
+    }
+
+    _sqlHelper.deleteKeuangan(data.id!);
+
+    dataKeuangan.removeWhere((element) => element.id == data.id!);
+
+    isLoading(false);
+    Get.snackbar("Message", "data Berhasil Di Hapus");
   }
 }

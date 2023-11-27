@@ -57,7 +57,7 @@ class InController extends GetxController {
     Get.back();
     isLoading(true);
 
-    await _sqlHelper.insertTransaction(
+    TransactionModel addIn = await _sqlHelper.insertTransaction(
       TransactionModel(
         type: type.value,
         destination: destinationController.text,
@@ -74,6 +74,7 @@ class InController extends GetxController {
 
     dataTransaksi.add(
       TransactionModel(
+        id: addIn.id,
         type: type.value,
         destination: destinationController.text,
         amount: int.parse(amountController.text),
@@ -84,5 +85,22 @@ class InController extends GetxController {
     );
     isLoading(false);
     Get.snackbar("Message", "data Berhasil Di Upload");
+  }
+
+  deleteItem(TransactionModel data) {
+    isLoading(true);
+
+    if (data.type == 'masuk') {
+      totalMasuk.value -= data.amount;
+    } else {
+      totalKeluar.value -= data.amount;
+    }
+
+    _sqlHelper.deleteTransaction(data.id!);
+
+    dataTransaksi.removeWhere((element) => element.id == data.id!);
+
+    isLoading(false);
+    Get.snackbar("Message", "data Berhasil Di Hapus");
   }
 }

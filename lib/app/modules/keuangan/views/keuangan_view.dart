@@ -132,6 +132,7 @@ class KeuanganView extends GetView<KeuanganController> {
                       date: element.date,
                       amount: element.amount.toString(),
                       desc: element.desc,
+                      onPressed: () => controller.deleteItem(element),
                     );
                   })
                   .toList()
